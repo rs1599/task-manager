@@ -1,15 +1,36 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
-function Form() {
+type Props = {
+  onAddTask: (
+    title: string,
+    category: string,
+    deadline: string
+  ) => void;
+};
+
+function Form({ onAddTask }: Props) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [deadline, setDeadline] = useState("");
+
+const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!title.trim()) return;
+
+    onAddTask(title, category, deadline);
+
+    setTitle("");
+    setCategory("");
+    setDeadline("");
+
+  };
 
   return (
     <section>
       <h2>タスク追加</h2>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">タスク名</label>
           <input
