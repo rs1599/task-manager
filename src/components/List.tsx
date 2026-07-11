@@ -3,9 +3,10 @@ import TaskItem from "./TaskItem";
 
 type Props = {
   tasks: Task[];
+  toggleTask: (id: string) => void;
 };
 
-function List({ tasks }: Props) {
+function List({ tasks, toggleTask }: Props) {
   return (
     <section>
       <h2>タスク一覧</h2>
@@ -15,7 +16,11 @@ function List({ tasks }: Props) {
       ) : (
         <ul>
           {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem 
+              key={task.id}
+              task={task}
+              toggleTask={toggleTask}
+            />
           ))}
         </ul>
       )}
