@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Form from "./components/Form"
 import List from "./components/List"
 import type { Task } from "./types/task";
 import './App.css'
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
   const addTask = (
     title: string,
@@ -33,14 +37,44 @@ function App() {
     );
   };
 
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") {
+      return !task.completed;
+    }
+
+    if (filter === "completed") {
+      return task.completed;
+    }
+
+    return true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <main className="container">
       <h1>Task Manager</h1>
 
       <Form onAddTask={addTask} />
 
+      <div className="filter-buttons">
+        <button onClick={() => setFilter("all")}>
+          すべて
+        </button>
+
+        <button onClick={() => setFilter("active")}>
+          未完了
+        </button>
+
+        <button onClick={() => setFilter("completed")}>
+          完了
+        </button>
+      </div>
+
       <List 
-        tasks={tasks}
+        tasks={filteredTasks}
         toggleTask={toggleTask}
       />
     </main>
