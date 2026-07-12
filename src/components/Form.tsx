@@ -30,60 +30,56 @@ function Form({ onAddTask }: Props) {
   };
 
   return (
-    <section>
-      <h2>タスク追加</h2>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="title">タスク名</label>
+        <input
+          id="title"
+          type="text"
+          placeholder="タスク名を入力"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">タスク名</label>
-          <input
-            id="title"
-            type="text"
-            placeholder="タスク名を入力"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+      <div>
+        <label htmlFor="description">説明</label>
+        <textarea
+          id="description"
+          placeholder="タスクの説明を入力"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
 
-        <div>
-          <label htmlFor="description">説明</label>
-          <textarea
-            id="description"
-            placeholder="タスクの説明を入力"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
+      <div>
+        <label htmlFor="category">カテゴリ</label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">選択してください</option>
+          <option value="学習">学習</option>
+          <option value="仕事">仕事</option>
+          <option value="プライベート">プライベート</option>
+          <option value="買い物">買い物</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
 
-        <div>
-          <label htmlFor="category">カテゴリ</label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">選択してください</option>
-            <option value="学習">学習</option>
-            <option value="仕事">仕事</option>
-            <option value="プライベート">プライベート</option>
-            <option value="買い物">買い物</option>
-            <option value="その他">その他</option>
-          </select>
-        </div>
+      <div>
+        <label htmlFor="deadline">期限</label>
+        <input
+          id="deadline"
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+        />
+      </div>
 
-        <div>
-          <label htmlFor="deadline">期限</label>
-          <input
-            id="deadline"
-            type="date"
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">追加</button>
-      </form>
-    </section>
+      <button type="submit">追加</button>
+    </form>
   );
 }
 
