@@ -1,3 +1,5 @@
+import Filter from "./components/Filter";
+import Swal from "sweetalert2";
 import { useEffect, useState } from "react"
 import Form from "./components/Form"
 import List from "./components/List"
@@ -30,6 +32,16 @@ function App() {
     };
 
     setTasks((prev) => [...prev, newTask]);
+
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "タスクを追加しました",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
   };
 
   const toggleTask = (id: string) => {
@@ -42,11 +54,26 @@ function App() {
     );
   };
 
-  const clearTasks = () => {
-    const result = window.confirm("すべてのタスクを削除しますか？");
+  const clearTasks = async () => {
+    const result = await Swal.fire({
+      title: "確認",
+      text: "すべてのタスクを削除しますか？",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "削除",
+      cancelButtonText: "キャンセル",
+      confirmButtonColor: "#d33",
+    });
 
-    if (result) {
+    if (result.isConfirmed) {
       setTasks([]);
+
+      await Swal.fire({
+        title: "削除しました",
+        text: "すべてのタスクを削除しました。",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -122,70 +149,16 @@ function App() {
       <details open>
         <summary>検索・絞り込み</summary>
 
-        <div className="filter-buttons">
-          <button onClick={() => setFilter("all")}>
-            すべて
-          </button>
-
-          <button onClick={() => setFilter("active")}>
-            未完了
-          </button>
-
-          <button onClick={() => setFilter("completed")}>
-            完了
-          </button>
-        </div>
-
-        <div>
-          <label htmlFor="search">検索</label>
-          <input
-            id="search"
-            type="text"
-            placeholder="タイトル・説明で検索"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="categoryFilter">カテゴリ</label>
-
-          <select
-            id="categoryFilter"
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            <option value="">すべて</option>
-            <option value="学習">学習</option>
-            <option value="仕事">仕事</option>
-            <option value="プライベート">プライベート</option>
-            <option value="買い物">買い物</option>
-            <option value="その他">その他</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="sortOrder">並び替え</label>
-
-          <select
-            id="sortOrder"
-            value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(
-                e.target.value as
-                  | "newest"
-                  | "oldest"
-                  | "deadline"
-                  | "title"
-              )
-            }
-          >
-            <option value="newest">新しい順</option>
-            <option value="oldest">古い順</option>
-            <option value="deadline">期限が近い順</option>
-            <option value="title">タイトル順</option>
-          </select>
-        </div>
+        <Filter
+          filter={filter}
+          setFilter={setFilter}
+          searchText={searchText}
+          setSearchText={setSearchText}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        />
       </details>
 
       <List

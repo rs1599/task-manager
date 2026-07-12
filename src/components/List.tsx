@@ -8,7 +8,7 @@ type Props = {
   completedCount: number;
 };
 
-function List({ 
+function List({
   tasks,
   toggleTask,
   activeCount,
@@ -22,8 +22,8 @@ function List({
         <p>タスクはありません。</p>
       ) : (
         <><div className="task-summary">
-            <p>未完了：{activeCount}件　完了：{completedCount}件</p>
-          </div>
+          <p>未完了：{activeCount}件　完了：{completedCount}件</p>
+        </div>
           <ul>
             {tasks.map((task) => (
               <TaskItem
