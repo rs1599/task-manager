@@ -13,12 +13,14 @@ function App() {
 
   const addTask = (
     title: string,
+    description: string,
     category: string,
     deadline: string
   ) => {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
+      description,
       category,
       deadline,
       completed: false,
@@ -49,6 +51,9 @@ function App() {
     return true;
   });
 
+  const activeCount = tasks.filter((task) => !task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -71,6 +76,11 @@ function App() {
         <button onClick={() => setFilter("completed")}>
           完了
         </button>
+      </div>
+
+      <div className="task-summary">
+        <p>未完了：{activeCount}件</p>
+        <p>完了：{completedCount}件</p>
       </div>
 
       <List 

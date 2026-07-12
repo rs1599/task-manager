@@ -13,7 +13,15 @@ function TaskItem({ task, toggleTask }: Props) {
         checked={task.completed}
         onChange={() => toggleTask(task.id)}
       />
-      {task.title}
+      <div>
+        <h3>{task.title}</h3>
+        <p>{task.description}</p>
+
+        <div className="task-meta">
+          {task.category && <span>{task.category}</span>}
+          {task.deadline && <span>{task.deadline}</span>}
+        </div>
+      </div>
     </li>
   );
 }
