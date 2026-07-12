@@ -39,6 +39,14 @@ function App() {
     );
   };
 
+  const clearTasks = () => {
+    const result = window.confirm("すべてのタスクを削除しますか？");
+
+    if (result) {
+      setTasks([]);
+    }
+  };
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === "active") {
       return !task.completed;
@@ -87,6 +95,12 @@ function App() {
         tasks={filteredTasks}
         toggleTask={toggleTask}
       />
+      <button
+        className="clear-button"
+        onClick={clearTasks}
+      >
+        すべて削除
+      </button>
     </main>
   );
 }
