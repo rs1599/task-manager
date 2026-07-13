@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from "react";
+import { validateTask } from "../utils/validation";
+import Swal from "sweetalert2";
 
 type Props = {
   onAddTask: (
@@ -18,7 +20,23 @@ function Form({ onAddTask }: Props) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title.trim()) return;
+    const errors = validateTask(
+      title,
+      description,
+      category,
+      deadline
+    );
+
+    if (errors.length > 0) {
+      Swal.fire({
+        icon: "error",
+        title: "入力エラー",
+        html: errors.map((error) => `• ${error}`).join("<br>"),
+        confirmButtonText: "OK",
+      });
+
+      return;
+    }
 
     onAddTask(title, description, category, deadline);
 
