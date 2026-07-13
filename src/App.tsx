@@ -44,7 +44,23 @@ function App() {
     });
   };
 
-  const toggleTask = (id: string) => {
+  const toggleTask = async (id: string) => {
+    const task = tasks.find((task) => task.id === id);
+
+    if (!task) return;
+
+    const result = await Swal.fire({
+      title: task.completed ? "未完了に戻しますか？" : "完了にしますか？",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "はい",
+      cancelButtonText: "いいえ",
+    });
+
+    if (!result.isConfirmed) {
+      return;
+    }
+
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id
@@ -55,6 +71,17 @@ function App() {
   };
 
   const clearTasks = async () => {
+
+    if (tasks.length === 0) {
+      await Swal.fire({
+        title: "削除できません",
+        text: "削除できるタスクがありません。",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     const result = await Swal.fire({
       title: "確認",
       text: "すべてのタスクを削除しますか？",
@@ -140,13 +167,13 @@ function App() {
     <main className="container">
       <h1>Task Manager</h1>
 
-      <details open>
+      <details className="panel" open>
         <summary>タスク追加</summary>
 
         <Form onAddTask={addTask} />
       </details>
 
-      <details open>
+      <details className="panel" open>
         <summary>検索・絞り込み</summary>
 
         <Filter

@@ -35,12 +35,12 @@ function Filter({
                     すべて
                 </button>
 
-                <button onClick={() => setFilter("active")}>
+                <button onClick={() => setFilter("active")} className="filter-button">
                     未完了
                 </button>
 
                 <button onClick={() => setFilter("completed")}>
-                    完了
+                    完　了
                 </button>
             </div>
 

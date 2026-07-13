@@ -1,6 +1,7 @@
 .container {
-  max-width: 700px;
-  margin: 40px auto;
+  max-width: 80%;
+  width: 700px;
+  margin: 0 auto;
   padding: 24px;
 }
 
@@ -10,7 +11,6 @@ h1 {
 }
 
 section {
-  margin-bottom: 24px;
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -28,7 +28,10 @@ label {
   font-weight: bold;
 }
 
-input {
+input[type="text"],
+input[type="date"],
+textarea,
+select {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -37,4 +40,92 @@ input {
 button {
   padding: 10px;
   cursor: pointer;
+}
+
+.summary-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-description {
+  margin: 16px 0;
+  color: #666;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.add-button {
+  width: 40%;
+  max-width:200px;
+  margin: 3% auto 0 auto;
+}
+
+.filter-button {
+  margin: 0 3%;
+}
+
+.clear-button {
+  width: 40%;
+  max-width:200px;
+  margin-top: 24px;
+  padding: 10px 16px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.panel summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 16px;
+}
+
+.panel[open] summary {
+  border-bottom: 1px solid #ddd;
+}
+
+.panel > *:not(summary) {
+  padding: 16px;
+}
+
+.task-item {
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.task-item details {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 16px;
+}
+
+.task-description,
+.task-info {
+  padding: 0 16px 16px;
+}
+
+.task-list {
+  margin-top: 2%;
+  text-align: left;
 }

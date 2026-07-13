@@ -7,22 +7,32 @@ type Props = {
 
 function TaskItem({ task, toggleTask }: Props) {
   return (
-    <li className="task-item">
-      <input
-        type="checkbox"
-        checked={task.completed}
-        onChange={() => toggleTask(task.id)}
-      />
-      <div>
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
+    <div className="task-item">
+      <details>
+        <summary>
+          <span className="summary-content">
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => toggleTask(task.id)}
+              onClick={(e) => e.stopPropagation()}
+            />
 
-        <div className="task-meta">
-          {task.category && <span>{task.category}</span>}
-          {task.deadline && <span>{task.deadline}</span>}
+            <span>{task.title}</span>
+          </span>
+        </summary>
+
+        <p className="task-description">
+          {task.description}
+        </p>
+
+        <div className="task-info">
+          <span>カテゴリ：{task.category}</span>
+          <span>締切：{task.deadline}</span>
         </div>
-      </div>
-    </li>
+
+      </details>
+    </div>
   );
 }
 

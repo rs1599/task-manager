@@ -96,7 +96,7 @@ function Form({ onAddTask }: Props) {
         />
       </div>
 
-      <button type="submit">追加</button>
+      <button type="submit" className="add-button">追加</button>
     </form>
   );
 }

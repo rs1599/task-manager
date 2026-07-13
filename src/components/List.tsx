@@ -3,7 +3,7 @@ import TaskItem from "./TaskItem";
 
 type Props = {
   tasks: Task[];
-  toggleTask: (id: string) => void;
+  toggleTask: (id: string) => Promise<void>;
   activeCount: number;
   completedCount: number;
 };
@@ -19,19 +19,19 @@ function List({
       <h2>タスク一覧</h2>
 
       {tasks.length === 0 ? (
-        <p>タスクはありません。</p>
+        <p>タスクはありません</p>
       ) : (
         <><div className="task-summary">
           <p>未完了：{activeCount}件　完了：{completedCount}件</p>
         </div>
-          <ul>
+          <div className="task-list">
             {tasks.map((task) => (
               <TaskItem
                 key={task.id}
                 task={task}
                 toggleTask={toggleTask} />
             ))}
-          </ul></>
+          </div></>
       )}
     </section>
   );
