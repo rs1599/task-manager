@@ -41,6 +41,7 @@ function App() {
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true,
+      scrollbarPadding: false,
     });
   };
 
@@ -55,6 +56,7 @@ function App() {
       showCancelButton: true,
       confirmButtonText: "はい",
       cancelButtonText: "いいえ",
+      scrollbarPadding: false,
     });
 
     if (!result.isConfirmed) {
@@ -78,6 +80,7 @@ function App() {
         text: "削除できるタスクがありません。",
         icon: "info",
         confirmButtonText: "OK",
+        scrollbarPadding: false,
       });
       return;
     }
@@ -90,6 +93,7 @@ function App() {
       confirmButtonText: "削除",
       cancelButtonText: "キャンセル",
       confirmButtonColor: "#d33",
+      scrollbarPadding: false,
     });
 
     if (result.isConfirmed) {
@@ -100,6 +104,7 @@ function App() {
         text: "すべてのタスクを削除しました。",
         icon: "success",
         confirmButtonText: "OK",
+        scrollbarPadding: false,
       });
     }
   };
@@ -167,13 +172,13 @@ function App() {
     <main className="container">
       <h1>Task Manager</h1>
 
-      <details className="panel" open>
+      <details className="panel">
         <summary>タスク追加</summary>
 
         <Form onAddTask={addTask} />
       </details>
 
-      <details className="panel" open>
+      <details className="panel">
         <summary>検索・絞り込み</summary>
 
         <Filter

@@ -33,6 +33,7 @@ function Form({ onAddTask }: Props) {
         title: "入力エラー",
         html: errors.map((error) => `• ${error}`).join("<br>"),
         confirmButtonText: "OK",
+        scrollbarPadding: false,
       });
 
       return;
