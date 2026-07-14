@@ -69,10 +69,6 @@ button {
   margin: 3% auto 0 auto;
 }
 
-.filter-button {
-  margin: 0 3%;
-}
-
 .clear-button {
   width: 40%;
   max-width:200px;
@@ -120,7 +116,7 @@ button {
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
-  padding: 16px;
+  padding: 10px;
 }
 
 .task-description,

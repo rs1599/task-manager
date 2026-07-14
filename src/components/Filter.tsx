@@ -30,20 +30,6 @@ function Filter({
 }: Props) {
     return (
         <>
-            <div className="filter-buttons">
-                <button onClick={() => setFilter("all")}>
-                    すべて
-                </button>
-
-                <button onClick={() => setFilter("active")} className="filter-button">
-                    未完了
-                </button>
-
-                <button onClick={() => setFilter("completed")}>
-                    完　了
-                </button>
-            </div>
-
             <div>
                 <label htmlFor="search">検索</label>
                 <input
@@ -53,6 +39,29 @@ function Filter({
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
+            </div>
+            
+            <div>
+                <label htmlFor="statusFilter">
+                    ステータス
+                </label>
+
+                <select
+                    id="statusFilter"
+                    value={filter}
+                    onChange={(e) =>
+                        setFilter(
+                            e.target.value as
+                            | "all"
+                            | "active"
+                            | "completed"
+                        )
+                    }
+                >
+                    <option value="all">すべて</option>
+                    <option value="active">未完了</option>
+                    <option value="completed">完了</option>
+                </select>
             </div>
 
             <div>
