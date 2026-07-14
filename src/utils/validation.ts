@@ -22,5 +22,11 @@ export function validateTask(
     errors.push("期限を入力してください。");
   }
 
+  const today = new Date().toISOString().split("T")[0];
+
+  if (deadline && deadline < today) {
+    errors.push("締切は今日以降の日付を入力してください。");
+  }
+
   return errors;
 }
