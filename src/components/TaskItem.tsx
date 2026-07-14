@@ -33,7 +33,7 @@ function TaskItem({ task, toggleTask }: Props) {
             </span>
 
             <span className="deadline">
-              締切：{task.deadline}
+              締切：{task.deadline.replaceAll("-", "/")}
             </span>
           </span>
         </summary>
