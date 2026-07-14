@@ -11,10 +11,25 @@ function TaskItem({ task, toggleTask }: Props) {
       <details>
         <summary className="task-summary">
           <span className="summary-content">
-            <span>{task.title}</span>
+            <span className="task-title">
+              {task.title}
+            </span>
           </span>
-          <span className="deadline">
-            締切：{task.deadline}
+
+          <span className="summary-right">
+            <span
+              className={
+                task.completed
+                  ? "task-status completed"
+                  : "task-status active"
+              }
+            >
+              {task.completed ? "完了" : "未完了"}
+            </span>
+
+            <span className="deadline">
+              締切：{task.deadline}
+            </span>
           </span>
         </summary>
 
