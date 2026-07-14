@@ -1,7 +1,10 @@
 import type { Task } from "../types/task";
 
 type Props = {
+  // 表示するタスク
   task: Task;
+
+  // タスクの完了・未完了を切り替える処理
   toggleTask: (id: string) => void;
 };
 
@@ -9,6 +12,7 @@ function TaskItem({ task, toggleTask }: Props) {
   return (
     <div className="task-item">
       <details>
+        {/* タスク一覧のヘッダー */}
         <summary className="task-summary">
           <span className="summary-content">
             <span className="task-title">
@@ -16,6 +20,7 @@ function TaskItem({ task, toggleTask }: Props) {
             </span>
           </span>
 
+          {/* ステータスと締切日を表示 */}
           <span className="summary-right">
             <span
               className={
@@ -33,12 +38,16 @@ function TaskItem({ task, toggleTask }: Props) {
           </span>
         </summary>
 
+        {/* タスクの説明 */}
         <p className="task-description">
           {task.description}
         </p>
 
         <div className="task-info">
+          {/* タスクのカテゴリ */}
           <span>カテゴリ：{task.category}</span>
+
+          {/* タスクの完了・未完了を切り替え */}
           <button
             type="button"
             className={

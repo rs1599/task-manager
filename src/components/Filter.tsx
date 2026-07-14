@@ -1,15 +1,19 @@
 type Props = {
+    // ステータス絞り込み
     filter: "all" | "active" | "completed";
     setFilter: React.Dispatch<
         React.SetStateAction<"all" | "active" | "completed">
     >;
 
+    // 検索キーワード
     searchText: string;
     setSearchText: React.Dispatch<React.SetStateAction<string>>;
 
+    // カテゴリ絞り込み
     categoryFilter: string;
     setCategoryFilter: React.Dispatch<React.SetStateAction<string>>;
 
+    // 並び替え
     sortOrder: "newest" | "oldest" | "deadline" | "title";
     setSortOrder: React.Dispatch<
         React.SetStateAction<
@@ -30,6 +34,7 @@ function Filter({
 }: Props) {
     return (
         <>
+            {/* タイトル・説明の検索 */}
             <div>
                 <label htmlFor="search">検索</label>
                 <input
@@ -40,7 +45,8 @@ function Filter({
                     onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
-            
+
+            {/* ステータスで絞り込み */}
             <div>
                 <label htmlFor="statusFilter">
                     ステータス
@@ -64,6 +70,7 @@ function Filter({
                 </select>
             </div>
 
+            {/* カテゴリで絞り込み */}
             <div>
                 <label htmlFor="categoryFilter">カテゴリ</label>
 
@@ -81,6 +88,7 @@ function Filter({
                 </select>
             </div>
 
+            {/* タスクの並び替え */}
             <div>
                 <label htmlFor="sortOrder">並び替え</label>
 

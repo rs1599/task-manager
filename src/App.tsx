@@ -7,21 +7,26 @@ import type { Task } from "./types/task";
 import './App.css'
 
 function App() {
+  // タスク一覧を管理（初回はlocalStorageから読み込み）
   const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
+
+  // 検索・絞り込み条件を管理
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [searchText, setSearchText] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest" | "deadline" | "title">("newest");
 
+  // タスクを追加
   const addTask = (
     title: string,
     description: string,
     category: string,
     deadline: string
   ) => {
+    // 入力内容から新しいタスクを作成
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
@@ -31,8 +36,10 @@ function App() {
       completed: false,
     };
 
+    // タスク一覧へ追加
     setTasks((prev) => [...prev, newTask]);
 
+    // タスク追加完了の通知を表示
     Swal.fire({
       toast: true,
       position: "top-end",
@@ -45,11 +52,14 @@ function App() {
     });
   };
 
+  // タスクの完了・未完了を切り替え
   const toggleTask = async (id: string) => {
+    // 対象のタスクを取得
     const task = tasks.find((task) => task.id === id);
 
     if (!task) return;
 
+    // 切り替え前に確認ダイアログを表示
     const result = await Swal.fire({
       title: task.completed ? "未完了に戻しますか？" : "完了にしますか？",
       icon: "question",
@@ -63,6 +73,7 @@ function App() {
       return;
     }
 
+    // 完了状態を反転
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id
@@ -72,8 +83,10 @@ function App() {
     );
   };
 
+  // タスクをすべて削除
   const clearTasks = async () => {
 
+    // タスクがない場合は削除できないことを通知
     if (tasks.length === 0) {
       await Swal.fire({
         title: "削除できません",
@@ -85,6 +98,7 @@ function App() {
       return;
     }
 
+    // 削除確認ダイアログを表示
     const result = await Swal.fire({
       title: "確認",
       text: "すべてのタスクを削除しますか？",
@@ -97,8 +111,10 @@ function App() {
     });
 
     if (result.isConfirmed) {
+      // タスクをすべて削除
       setTasks([]);
 
+      // 削除完了メッセージを表示
       await Swal.fire({
         title: "削除しました",
         text: "すべてのタスクを削除しました。",
@@ -109,6 +125,7 @@ function App() {
     }
   };
 
+  // 検索・絞り込み条件に一致するタスクを抽出
   const filteredTasks = tasks.filter((task) => {
     const keyword = searchText.toLowerCase();
 
@@ -137,6 +154,7 @@ function App() {
     return true;
   });
 
+  // 選択された並び順でタスクを並び替え
   const sortedTasks = [...filteredTasks];
 
   switch (sortOrder) {
@@ -161,9 +179,11 @@ function App() {
       break;
   }
 
+  // 未完了・完了タスク数を集計
   const activeCount = tasks.filter((task) => !task.completed).length;
   const completedCount = tasks.filter((task) => task.completed).length;
 
+  // タスク変更時にlocalStorageへ保存
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -199,6 +219,7 @@ function App() {
         activeCount={activeCount}
         completedCount={completedCount}
       />
+
       <button
         className="clear-button"
         onClick={clearTasks}

@@ -12,14 +12,18 @@ type Props = {
 };
 
 function Form({ onAddTask }: Props) {
+  // フォームの入力内容を管理
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [deadline, setDeadline] = useState("");
 
+  // フォーム送信時の処理
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // ページの再読み込みを防止
     e.preventDefault();
 
+    // 入力内容をチェック
     const errors = validateTask(
       title,
       description,
@@ -27,6 +31,7 @@ function Form({ onAddTask }: Props) {
       deadline
     );
 
+    // 入力エラーがある場合は一覧で表示
     if (errors.length > 0) {
       Swal.fire({
         icon: "error",
@@ -39,8 +44,10 @@ function Form({ onAddTask }: Props) {
       return;
     }
 
+    // 入力内容を親コンポーネントへ渡してタスクを追加
     onAddTask(title, description, category, deadline);
 
+    // 入力フォームを初期化
     setTitle("");
     setDescription("");
     setCategory("");
