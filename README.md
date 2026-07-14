@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+## 起動手順
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- リポジトリをクローン
+git clone https://github.com/rs1599/task-manager
 
-Currently, two official plugins are available:
+- プロジェクトへ移動
+cd task-manager
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- パッケージインストール
+npm install
 
-## React Compiler
+- 開発サーバー起動
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## 使用技術・バージョン
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# 言語
+  - TypeScript 6.0.2
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# フレームワーク・ライブラリ
+  - React 19.2.7
+  - Vite 8.1.1
+  - SweetAlert2
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ディレクトリ構成・設計意図
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── components/
+│ ├── Filter.tsx # 検索・絞り込み条件フォーム
+│ ├── Form.tsx # タスク追加フォーム
+│ ├── List.tsx # タスク一覧表示
+│ └── TaskItem.tsx # 個別タスク表示
+├── types/
+│ └── task.ts # タスクデータの型定義
+├── utils/
+│ └── validation.ts # 入力値のバリデーション処理
+├── App.tsx # アプリ全体の状態管理・処理
+├── main.tsx # Reactアプリのエントリーポイント
+├── App.css # スタイル定義
+└── index.css # スタイル定義
 
-```
+# 設計意図
+UIとロジックを分離するため、機能単位でコンポーネントを分割しました。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+タスク情報の状態管理は"App.tsx"で一元管理し、子コンポーネントにはpropsで必要なデータや処理を渡しています。
+また、型定義や共通処理を別ファイルに分離することで、保守性を高められるよう考えました。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 工夫した点
 
-```
+# UI
+画面上に表示する情報量を整理し、必要な情報を確認しやすいUIを意識しました。　「タスク一覧でタスク名が長い場合省略表示する」等必要な情報を必要なだけ表示するようにしています。　また、入力チェックや削除時、タスク追加時はSweetalert2を使用し、視覚的にわかりやすくしました。
+
+タスク一覧は完了/未完了が一覧わかりやすい色と表示にし、タイトル・ステータス・期限が1行で分かるようにしました。
+
+
+## 今後の改善ポイント
+
+# タスク編集機能
+現在はタスク追加専用のフォームとして設計しているため、最初から編集も考慮した設計にするべきだったと感じました。　タスク一覧を直接編集できるようにすることも考えましたが、時間の都合上今回は実装しませんでした。
+
+# レスポンシブ対応
+開発者ツールでの確認は行いましたが、実機で確認すると一部項目のサイズがずれていることに気づきました。　今後は実機での確認による調整も行う必要があると感じました。
