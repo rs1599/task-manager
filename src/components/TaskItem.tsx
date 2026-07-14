@@ -9,16 +9,12 @@ function TaskItem({ task, toggleTask }: Props) {
   return (
     <div className="task-item">
       <details>
-        <summary>
+        <summary className="task-summary">
           <span className="summary-content">
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => toggleTask(task.id)}
-              onClick={(e) => e.stopPropagation()}
-            />
-
             <span>{task.title}</span>
+          </span>
+          <span className="deadline">
+            締切：{task.deadline}
           </span>
         </summary>
 
@@ -28,7 +24,17 @@ function TaskItem({ task, toggleTask }: Props) {
 
         <div className="task-info">
           <span>カテゴリ：{task.category}</span>
-          <span>締切：{task.deadline}</span>
+          <button
+            type="button"
+            className={
+              task.completed
+                ? "status-button undo"
+                : "status-button complete"
+            }
+            onClick={() => toggleTask(task.id)}
+          >
+            {task.completed ? "未完了に戻す" : "タスク完了"}
+          </button>
         </div>
 
       </details>

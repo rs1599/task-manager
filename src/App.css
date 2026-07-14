@@ -51,6 +51,11 @@ button {
 .task-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.task-info button {
+  padding: 6px 12px;
 }
 
 .task-description {
@@ -128,4 +133,38 @@ button {
 .task-list {
   margin-top: 2%;
   text-align: left;
+}
+
+.task-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deadline {
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+}
+
+.status-button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.status-button:hover {
+  opacity: 0.8;
+}
+
+.status-button.complete {
+  background-color: #28a745;
+}
+
+.status-button.undo {
+  background-color: #f39c12;
 }
